@@ -13,7 +13,7 @@
 
     <groupId>science.aist</groupId>
     <artifactId>bpmn-viz</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
 
 
     <properties>
@@ -55,7 +55,7 @@
         <connection>scm:git:git@github.com:FHOOEAIST/bpmn-viz.git</connection>
         <url>https://github.com/FHOOEAIST/bpmn-viz</url>
         <developerConnection>scm:git:git@github.com:FHOOEAIST/bpmn-viz.git</developerConnection>
-        <tag>bpmn-viz-1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
     <distributionManagement>
         <repository>
