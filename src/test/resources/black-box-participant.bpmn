@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+  ~ Copyright (c) 2020 the original author or authors.
+  ~ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  -->
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" targetNamespace="http://aist.fh-hagenberg.at/msbpmn">
+    <collaboration id="sid-54cad3ae-6fa6-4829-a5ef-f4aa3ea715e4">
+        <participant id="sid-0B22FD3B-7ABB-4D7D-9A2B-6084F6B31FBC" name="Labor">
+        </participant>
+        <messageFlow id="sid-506831FF-44C5-4655-A778-38782A324A78" name="" sourceRef="sid-DE31A62D-AEE2-46D0-B130-97B6F379F413" targetRef="sid-0B22FD3B-7ABB-4D7D-9A2B-6084F6B31FBC">
+        </messageFlow>
+        <messageFlow id="sid-628FCDC7-254F-4C68-B673-E57260164EAD" name="" sourceRef="sid-0B22FD3B-7ABB-4D7D-9A2B-6084F6B31FBC" targetRef="sid-40307B89-34B7-4E32-8531-CC8721FF26C6">
+        </messageFlow>
+        <participant name="Test" id="test" processRef="sid-a1163b32-3094-4677-894a-383c04930196"/>
+    </collaboration>
+    <process id="sid-a1163b32-3094-4677-894a-383c04930196" isClosed="false" isExecutable="false" processType="None">
+        <dataObject id="sid-40c8e83f-acc2-43ba-bafe-f894078f41ff" isCollection="false" name="Untersuchungsanforderung"/>
+        <dataObject id="sid-f901abf5-c080-4ee5-be39-ee548a8362c1" isCollection="false" name="Anamnese"/>
+        <dataObject id="sid-a9dc0927-eff2-432c-b4ee-5fb43c8e5deb" isCollection="false" name="BQLL: Tab. 2. Zusammenfassung der präoperativen empfohlenen labormedizinischen Tests + aussage 8 / 9"/>
+        <dataObject id="sid-eaa6d8e8-f623-42ce-a630-ed49b6b9aafd" isCollection="false" name="Laborbefund"/>
+        <businessRuleTask completionQuantity="1" id="sid-791AB4A2-B703-41ED-9D93-16A2A9C07042" implementation="##WebService" isForCompensation="false" name="Untersuchungsanforderung erstellen" startQuantity="1">
+            <incoming>sid-0652AD3F-28B4-43A5-AC21-DD91E2146634</incoming>
+            <outgoing>sid-B21DDB52-BEA1-48DF-B732-C3CEBB4977AF</outgoing>
+            <ioSpecification id="sid-b1ced0c8-0629-4a8d-844e-038e627defdd">
+                <dataInput id="sid-e4e44464-1338-4fd6-99ec-919d9d937c3a" isCollection="false"/>
+                <dataInput id="sid-e2b09897-bf14-4f5a-ba11-f128f114f47f" isCollection="false"/>
+                <dataOutput id="sid-65fd0fd1-c773-4186-a9c1-491801cb41c6" isCollection="false"/>
+                <inputSet id="sid-9828cb5d-adbf-4b4d-9378-46c64ffcd527" name="DefaultInputSet">
+                    <dataInputRefs>sid-e4e44464-1338-4fd6-99ec-919d9d937c3a</dataInputRefs>
+                    <dataInputRefs>sid-e2b09897-bf14-4f5a-ba11-f128f114f47f</dataInputRefs>
+                    <outputSetRefs>sid-5a658c0e-68c7-406d-b1de-1473a15ae015</outputSetRefs>
+                </inputSet>
+                <outputSet id="sid-5a658c0e-68c7-406d-b1de-1473a15ae015" name="DefaultOutputSet">
+                    <dataOutputRefs>sid-65fd0fd1-c773-4186-a9c1-491801cb41c6</dataOutputRefs>
+                    <inputSetRefs>sid-9828cb5d-adbf-4b4d-9378-46c64ffcd527</inputSetRefs>
+                </outputSet>
+            </ioSpecification>
+            <dataInputAssociation id="sid-C196A07B-A60E-4960-AD78-4CE40D317602">
+                <sourceRef>sid-1E17C369-62AA-4EF6-BD5B-1960CABB6972</sourceRef>
+                <targetRef>sid-e4e44464-1338-4fd6-99ec-919d9d937c3a</targetRef>
+            </dataInputAssociation>
+            <dataInputAssociation id="sid-F26BB6E3-3824-4CD6-A078-AEE20E7F47AB">
+                <sourceRef>sid-D28D6698-8FB9-4906-BB9C-32E13983D890</sourceRef>
+                <targetRef>sid-e2b09897-bf14-4f5a-ba11-f128f114f47f</targetRef>
+            </dataInputAssociation>
+            <dataOutputAssociation id="sid-D8075FD5-93C1-4E94-82C2-2DE7940569C8">
+                <sourceRef>sid-65fd0fd1-c773-4186-a9c1-491801cb41c6</sourceRef>
+                <targetRef>sid-41293DD3-D2E5-4250-B48A-0432FC76635C</targetRef>
+            </dataOutputAssociation>
+        </businessRuleTask>
+        <userTask completionQuantity="1" id="sid-2017B753-F1F6-445E-AC73-EB70FD4881C5" implementation="##WebService" isForCompensation="false" name="Blutabnahme" startQuantity="1">
+            <incoming>sid-F9B39F04-4A01-418E-B83E-D74BA0CB22BA</incoming>
+            <outgoing>sid-1C84117D-709F-476E-8F9F-F46BDCAD9A56</outgoing>
+        </userTask>
+        <parallelGateway gatewayDirection="Diverging" id="sid-90F6F0CD-3ECF-44A4-85DA-4818DB397819" name="">
+            <incoming>sid-63CF72AC-4A35-4331-9C4A-817DF76BAD78</incoming>
+            <outgoing>sid-0652AD3F-28B4-43A5-AC21-DD91E2146634</outgoing>
+            <outgoing>sid-F9B39F04-4A01-418E-B83E-D74BA0CB22BA</outgoing>
+        </parallelGateway>
+        <parallelGateway gatewayDirection="Converging" id="sid-AAF817A5-F53E-4532-A2B5-2185F0CEEA80" name="">
+            <incoming>sid-B21DDB52-BEA1-48DF-B732-C3CEBB4977AF</incoming>
+            <incoming>sid-1C84117D-709F-476E-8F9F-F46BDCAD9A56</incoming>
+            <outgoing>sid-5D44947C-661A-4428-9316-EBF5E8A06183</outgoing>
+        </parallelGateway>
+        <startEvent id="sid-7BF18CA8-5FC1-4767-BB7E-19E46ECBB24D" isInterrupting="true" name="Start der &#10;Laborbefundung">
+            <outgoing>sid-63CF72AC-4A35-4331-9C4A-817DF76BAD78</outgoing>
+        </startEvent>
+        <task completionQuantity="1" id="sid-DE31A62D-AEE2-46D0-B130-97B6F379F413" isForCompensation="false" name="Laborbefund anfordern" startQuantity="1">
+            <incoming>sid-5D44947C-661A-4428-9316-EBF5E8A06183</incoming>
+            <outgoing>sid-65D23F82-FFA8-4E5F-AD6E-36F3814F0469</outgoing>
+            <ioSpecification id="sid-6e8dd33f-3627-408c-bfe8-13353e9a45f1">
+                <dataInput id="sid-892eb1c7-e57d-4550-abda-8032c2e222c4" isCollection="false"/>
+            </ioSpecification>
+            <dataInputAssociation id="sid-4C70DE61-B950-43B9-B08B-44561000F039">
+                <sourceRef>sid-41293DD3-D2E5-4250-B48A-0432FC76635C</sourceRef>
+                <targetRef>sid-892eb1c7-e57d-4550-abda-8032c2e222c4</targetRef>
+            </dataInputAssociation>
+        </task>
+        <intermediateCatchEvent id="sid-40307B89-34B7-4E32-8531-CC8721FF26C6" name="Laborbefund &#10;eingetroffen">
+            <incoming>sid-65D23F82-FFA8-4E5F-AD6E-36F3814F0469</incoming>
+            <outgoing>sid-6BAFCE7A-F0CC-4707-B0EE-FBE5128B5240</outgoing>
+            <dataOutput id="sid-c2ef5d4c-296d-4ef0-a128-10b9487c6986" isCollection="false"/>
+            <dataOutput id="sid-0e4314d5-f11c-45c9-914f-1b0d70c4c357"/>
+            <dataOutputAssociation id="sid-C7FADEF0-AA3C-4DDA-BAA2-F57755DD2D1F">
+                <sourceRef>sid-0e4314d5-f11c-45c9-914f-1b0d70c4c357</sourceRef>
+                <targetRef>sid-AAA95607-A6BE-43C3-8ABC-588BBFC45455</targetRef>
+            </dataOutputAssociation>
+            <outputSet id="sid-5a99b060-a747-4553-beb2-7587884f114c" name="DefaultOutputSet">
+                <dataOutputRefs>sid-0e4314d5-f11c-45c9-914f-1b0d70c4c357</dataOutputRefs>
+            </outputSet>
+            <messageEventDefinition id="sid-08e00215-695d-42ca-9315-6bded277750a"/>
+        </intermediateCatchEvent>
+        <endEvent id="sid-62FF8648-AFCA-4DB1-8753-B98ED13FB6A8" name="Laborbefundung&#10;abgeschlossen">
+            <incoming>sid-6BAFCE7A-F0CC-4707-B0EE-FBE5128B5240</incoming>
+        </endEvent>
+        <sequenceFlow id="sid-B21DDB52-BEA1-48DF-B732-C3CEBB4977AF" isImmediate="true" name="" sourceRef="sid-791AB4A2-B703-41ED-9D93-16A2A9C07042" targetRef="sid-AAF817A5-F53E-4532-A2B5-2185F0CEEA80">
+        </sequenceFlow>
+        <sequenceFlow id="sid-0652AD3F-28B4-43A5-AC21-DD91E2146634" isImmediate="true" name="" sourceRef="sid-90F6F0CD-3ECF-44A4-85DA-4818DB397819" targetRef="sid-791AB4A2-B703-41ED-9D93-16A2A9C07042">
+        </sequenceFlow>
+        <sequenceFlow id="sid-1C84117D-709F-476E-8F9F-F46BDCAD9A56" isImmediate="true" name="" sourceRef="sid-2017B753-F1F6-445E-AC73-EB70FD4881C5" targetRef="sid-AAF817A5-F53E-4532-A2B5-2185F0CEEA80">
+        </sequenceFlow>
+        <sequenceFlow id="sid-F9B39F04-4A01-418E-B83E-D74BA0CB22BA" isImmediate="true" name="" sourceRef="sid-90F6F0CD-3ECF-44A4-85DA-4818DB397819" targetRef="sid-2017B753-F1F6-445E-AC73-EB70FD4881C5">
+        </sequenceFlow>
+        <sequenceFlow id="sid-63CF72AC-4A35-4331-9C4A-817DF76BAD78" isImmediate="true" name="" sourceRef="sid-7BF18CA8-5FC1-4767-BB7E-19E46ECBB24D" targetRef="sid-90F6F0CD-3ECF-44A4-85DA-4818DB397819">
+        </sequenceFlow>
+        <sequenceFlow id="sid-5D44947C-661A-4428-9316-EBF5E8A06183" isImmediate="true" name="" sourceRef="sid-AAF817A5-F53E-4532-A2B5-2185F0CEEA80" targetRef="sid-DE31A62D-AEE2-46D0-B130-97B6F379F413">
+        </sequenceFlow>
+        <sequenceFlow id="sid-65D23F82-FFA8-4E5F-AD6E-36F3814F0469" isImmediate="true" name="" sourceRef="sid-DE31A62D-AEE2-46D0-B130-97B6F379F413" targetRef="sid-40307B89-34B7-4E32-8531-CC8721FF26C6">
+        </sequenceFlow>
+        <sequenceFlow id="sid-6BAFCE7A-F0CC-4707-B0EE-FBE5128B5240" isImmediate="true" name="" sourceRef="sid-40307B89-34B7-4E32-8531-CC8721FF26C6" targetRef="sid-62FF8648-AFCA-4DB1-8753-B98ED13FB6A8">
+        </sequenceFlow>
+        <dataObjectReference dataObjectRef="sid-40c8e83f-acc2-43ba-bafe-f894078f41ff" id="sid-41293DD3-D2E5-4250-B48A-0432FC76635C" name="Untersuchungsanforderung">
+        </dataObjectReference>
+        <dataObjectReference dataObjectRef="sid-f901abf5-c080-4ee5-be39-ee548a8362c1" id="sid-1E17C369-62AA-4EF6-BD5B-1960CABB6972" name="Anamnese">
+        </dataObjectReference>
+        <dataObjectReference dataObjectRef="sid-a9dc0927-eff2-432c-b4ee-5fb43c8e5deb" id="sid-D28D6698-8FB9-4906-BB9C-32E13983D890" name="BQLL: Tab. 2. Zusammenfassung der präoperativen empfohlenen labormedizinischen Tests + aussage 8 / 9">
+        </dataObjectReference>
+        <dataObjectReference dataObjectRef="sid-eaa6d8e8-f623-42ce-a630-ed49b6b9aafd" id="sid-AAA95607-A6BE-43C3-8ABC-588BBFC45455" name="Laborbefund">
+        </dataObjectReference>
+    </process>
+</definitions>

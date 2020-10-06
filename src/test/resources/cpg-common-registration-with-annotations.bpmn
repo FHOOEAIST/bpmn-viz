@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (c) 2020 the original author or authors.
+  ~ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  -->
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" targetNamespace="http://aist.fh-hagenberg.at/msbpmn"
+             exporter="Camunda Modeler" exporterVersion="4.0.0">
+  <process id="PlanDefinition_CPG_Common_Registration" name="PlanDefinition_CPG_Common_Registration" isExecutable="false">
+    <startEvent id="id_start49" name="start" isInterrupting="false">
+      <outgoing>sf_start49_ad_1</outgoing>
+    </startEvent>
+    <sequenceFlow id="sf_start49_ad_1" sourceRef="id_start49" targetRef="id_ad_1" />
+    <subProcess id="id_ad_1" name="Registration">
+      <incoming>sf_start49_ad_1</incoming>
+      <outgoing>sf_ad_1_end50</outgoing>
+      <dataOutputAssociation id="df_id_ad_1_data_18">
+        <targetRef>id_data_18</targetRef>
+      </dataOutputAssociation>
+      <startEvent id="id_start47" name="start" isInterrupting="false">
+        <outgoing>sf_start47_ad_2</outgoing>
+      </startEvent>
+      <sequenceFlow id="sf_start47_ad_2" sourceRef="id_start47" targetRef="id_ad_2" />
+      <userTask id="id_ad_2" name="Gather identifying information">
+        <incoming>sf_start47_ad_2</incoming>
+        <outgoing>sf_ad_2_ad_3</outgoing>
+        <dataOutputAssociation id="df_id_ad_2_data_1">
+          <targetRef>id_data_1</targetRef>
+        </dataOutputAssociation>
+      </userTask>
+      <sequenceFlow id="sf_ad_2_ad_3" sourceRef="id_ad_2" targetRef="id_ad_3" />
+      <dataObjectReference id="id_data_1" name="Questionnaire Response" dataObjectRef="id_dataObj_data_1">
+        <extensionElements>
+          <ns5:type xmlns:ns5="http://aist.fh-hagenberg.at/msbpmn/bpmn-extension/fhir">QuestionnaireResponse</ns5:type>
+        </extensionElements>
+      </dataObjectReference>
+      <dataObject id="id_dataObj_data_1" />
+      <userTask id="id_ad_3" name="Patient match">
+        <incoming>sf_ad_2_ad_3</incoming>
+        <outgoing>sf_ad_3_ad_4</outgoing>
+        <property id="prop_ad_3_data_1" name="prop_Questionnaire Response" />
+        <property id="Property_0xrblkz" name="__targetRef_placeholder" />
+        <dataInputAssociation id="df_id_ad_3_data_1">
+          <sourceRef>id_data_1</sourceRef>
+          <targetRef>Property_0xrblkz</targetRef>
+        </dataInputAssociation>
+        <dataOutputAssociation id="df_id_ad_3_data_3">
+          <targetRef>id_data_3</targetRef>
+        </dataOutputAssociation>
+      </userTask>
+      <sequenceFlow id="sf_ad_3_ad_4" sourceRef="id_ad_3" targetRef="id_ad_4" />
+      <dataObjectReference id="id_data_3" name="Bundle" dataObjectRef="id_dataObj_data_3">
+        <extensionElements>
+          <ns5:type xmlns:ns5="http://aist.fh-hagenberg.at/msbpmn/bpmn-extension/fhir">Bundle</ns5:type>
+        </extensionElements>
+      </dataObjectReference>
+      <dataObject id="id_dataObj_data_3" />
+      <userTask id="id_ad_4" name="Resolve patient match results">
+        <incoming>sf_ad_3_ad_4</incoming>
+        <outgoing>sf_ad_4_xor_group</outgoing>
+        <property id="prop_ad_4_data_3" name="prop_Bundle" />
+        <property id="Property_145h7pc" name="__targetRef_placeholder" />
+        <dataInputAssociation id="df_id_ad_4_data_3">
+          <sourceRef>id_data_3</sourceRef>
+          <targetRef>Property_145h7pc</targetRef>
+        </dataInputAssociation>
+        <dataOutputAssociation id="df_id_ad_4_data_5">
+          <targetRef>id_data_5</targetRef>
+        </dataOutputAssociation>
+      </userTask>
+      <sequenceFlow id="sf_ad_4_xor_group" sourceRef="id_ad_4" targetRef="id_xor_group" />
+      <dataObjectReference id="id_data_5" name="Patient" dataObjectRef="id_dataObj_data_5">
+        <extensionElements>
+          <ns5:type xmlns:ns5="http://aist.fh-hagenberg.at/msbpmn/bpmn-extension/fhir">Patient</ns5:type>
+        </extensionElements>
+      </dataObjectReference>
+      <dataObject id="id_dataObj_data_5" />
+      <exclusiveGateway id="id_xor_group" name="xor_group">
+        <incoming>sf_ad_4_xor_group</incoming>
+        <outgoing>sf_xor_group_ad_8</outgoing>
+        <outgoing>sf_xor_group_ad_5</outgoing>
+      </exclusiveGateway>
+      <sequenceFlow id="sf_xor_group_ad_8" name="exists %input i where i is Patient" sourceRef="id_xor_group" targetRef="id_ad_8">
+        <conditionExpression id="sf_xor_group_ad_8_condition">exists %input i where i is Patient</conditionExpression>
+      </sequenceFlow>
+      <sequenceFlow id="sf_xor_group_ad_5" name="not exists %input i where i is Patient" sourceRef="id_xor_group" targetRef="id_ad_5">
+        <conditionExpression id="sf_xor_group_ad_5_condition">not exists %input i where i is Patient</conditionExpression>
+      </sequenceFlow>
+      <subProcess id="id_ad_8" name="Existing patient">
+        <incoming>sf_xor_group_ad_8</incoming>
+        <outgoing>sf_ad_8_join_of_xor_group</outgoing>
+        <property id="prop_ad_8_data_1" name="prop_Questionnaire Response" />
+        <property id="prop_ad_8_data_5" name="prop_Patient" />
+        <property id="Property_16t12t0" name="__targetRef_placeholder" />
+        <dataInputAssociation id="df_id_ad_8_data_1">
+          <sourceRef>id_data_1</sourceRef>
+          <targetRef>Property_16t12t0</targetRef>
+        </dataInputAssociation>
+        <dataInputAssociation id="df_id_ad_8_data_5">
+          <sourceRef>id_data_5</sourceRef>
+          <targetRef>Property_16t12t0</targetRef>
+        </dataInputAssociation>
+        <dataOutputAssociation id="df_id_ad_8_data_20">
+          <targetRef>id_data_20</targetRef>
+        </dataOutputAssociation>
+        <startEvent id="id_start45" name="start" isInterrupting="false">
+          <outgoing>sf_start45_ad_9</outgoing>
+        </startEvent>
+        <sequenceFlow id="sf_start45_ad_9" sourceRef="id_start45" targetRef="id_ad_9" />
+        <userTask id="id_ad_9" name="Ensure patient information is up to date">
+          <incoming>sf_start45_ad_9</incoming>
+          <outgoing>sf_ad_9_ad_10</outgoing>
+          <property id="prop_ad_9_data_12" name="prop_Questionnaire Response" />
+          <property id="Property_0ibnlvn" name="__targetRef_placeholder" />
+          <dataInputAssociation id="df_id_ad_9_data_12">
+            <sourceRef>id_data_12</sourceRef>
+            <targetRef>Property_0ibnlvn</targetRef>
+          </dataInputAssociation>
+          <dataOutputAssociation id="df_id_ad_9_data_13">
+            <targetRef>id_data_13</targetRef>
+          </dataOutputAssociation>
+        </userTask>
+        <sequenceFlow id="sf_ad_9_ad_10" sourceRef="id_ad_9" targetRef="id_ad_10" />
+        <dataObjectReference id="id_data_13" name="Questionnaire Response filled" dataObjectRef="id_dataObj_data_13">
+          <extensionElements>
+            <ns5:type xmlns:ns5="http://aist.fh-hagenberg.at/msbpmn/bpmn-extension/fhir">QuestionnaireResponse</ns5:type>
+          </extensionElements>
+        </dataObjectReference>
+        <dataObject id="id_dataObj_data_13" />
+        <dataObjectReference id="id_data_12" name="Questionnaire Response" dataObjectRef="id_dataObj_data_12">
+          <extensionElements>
+            <ns5:type xmlns:ns5="http://aist.fh-hagenberg.at/msbpmn/bpmn-extension/fhir">QuestionnaireResponse</ns5:type>
+          </extensionElements>
+        </dataObjectReference>
+        <dataObject id="id_dataObj_data_12" />
+        <userTask id="id_ad_10" name="Record patient data">
+          <incoming>sf_ad_9_ad_10</incoming>
+          <outgoing>sf_ad_10_end46</outgoing>
+          <property id="prop_ad_10_data_13" name="prop_Questionnaire Response filled" />
+          <property id="Property_091epk7" name="__targetRef_placeholder" />
+          <dataInputAssociation id="df_id_ad_10_data_13">
+            <sourceRef>id_data_13</sourceRef>
+            <targetRef>Property_091epk7</targetRef>
+          </dataInputAssociation>
+          <dataOutputAssociation id="df_id_ad_10_data_15">
+            <targetRef>id_data_15</targetRef>
+          </dataOutputAssociation>
+        </userTask>
+        <sequenceFlow id="sf_ad_10_end46" sourceRef="id_ad_10" targetRef="id_end46" />
+        <dataObjectReference id="id_data_15" name="Patient" dataObjectRef="id_dataObj_data_15">
+          <extensionElements>
+            <ns5:type xmlns:ns5="http://aist.fh-hagenberg.at/msbpmn/bpmn-extension/fhir">Patient</ns5:type>
+          </extensionElements>
+        </dataObjectReference>
+        <dataObject id="id_dataObj_data_15" />
+        <endEvent id="id_end46" name="end">
+          <incoming>sf_ad_10_end46</incoming>
+        </endEvent>
+      </subProcess>
+      <sequenceFlow id="sf_ad_8_join_of_xor_group" sourceRef="id_ad_8" targetRef="id_join_of_xor_group" />
+      <dataObjectReference id="id_data_20" name="Patient" dataObjectRef="id_dataObj_data_20">
+        <extensionElements>
+          <ns5:type xmlns:ns5="http://aist.fh-hagenberg.at/msbpmn/bpmn-extension/fhir">Patient</ns5:type>
+        </extensionElements>
+      </dataObjectReference>
+      <dataObject id="id_dataObj_data_20" />
+      <subProcess id="id_ad_5" name="New patient">
+        <incoming>sf_xor_group_ad_5</incoming>
+        <outgoing>sf_ad_5_join_of_xor_group</outgoing>
+        <property id="prop_ad_5_data_5" name="prop_Patient" />
+        <property id="prop_ad_5_data_1" name="prop_Questionnaire Response" />
+        <property id="Property_0xg6jvs" name="__targetRef_placeholder" />
+        <dataInputAssociation id="df_id_ad_5_data_5">
+          <sourceRef>id_data_5</sourceRef>
+          <targetRef>Property_0xg6jvs</targetRef>
+        </dataInputAssociation>
+        <dataInputAssociation id="df_id_ad_5_data_1">
+          <sourceRef>id_data_1</sourceRef>
+          <targetRef>Property_0xg6jvs</targetRef>
+        </dataInputAssociation>
+        <dataOutputAssociation id="df_id_ad_5_data_19">
+          <targetRef>id_data_19</targetRef>
+        </dataOutputAssociation>
+        <startEvent id="id_start43" name="start" isInterrupting="false">
+          <outgoing>sf_start43_ad_6</outgoing>
+        </startEvent>
+        <sequenceFlow id="sf_start43_ad_6" sourceRef="id_start43" targetRef="id_ad_6" />
+        <userTask id="id_ad_6" name="Gather patient information">
+          <incoming>sf_start43_ad_6</incoming>
+          <outgoing>sf_ad_6_ad_7</outgoing>
+          <property id="prop_ad_6_data_7" name="prop_Questionnaire Response" />
+          <property id="Property_1ep6vzi" name="__targetRef_placeholder" />
+          <dataInputAssociation id="df_id_ad_6_data_7">
+            <sourceRef>id_data_7</sourceRef>
+            <targetRef>Property_1ep6vzi</targetRef>
+          </dataInputAssociation>
+          <dataOutputAssociation id="df_id_ad_6_data_8">
+            <targetRef>id_data_8</targetRef>
+          </dataOutputAssociation>
+        </userTask>
+        <sequenceFlow id="sf_ad_6_ad_7" sourceRef="id_ad_6" targetRef="id_ad_7" />
+        <dataObjectReference id="id_data_8" name="Questionnaire Response filled" dataObjectRef="id_dataObj_data_8">
+          <extensionElements>
+            <ns5:type xmlns:ns5="http://aist.fh-hagenberg.at/msbpmn/bpmn-extension/fhir">QuestionnaireResponse</ns5:type>
+          </extensionElements>
+        </dataObjectReference>
+        <dataObject id="id_dataObj_data_8" />
+        <dataObjectReference id="id_data_7" name="Questionnaire Response" dataObjectRef="id_dataObj_data_7">
+          <extensionElements>
+            <ns5:type xmlns:ns5="http://aist.fh-hagenberg.at/msbpmn/bpmn-extension/fhir">QuestionnaireResponse</ns5:type>
+          </extensionElements>
+        </dataObjectReference>
+        <dataObject id="id_dataObj_data_7" />
+        <userTask id="id_ad_7" name="Record patient data">
+          <incoming>sf_ad_6_ad_7</incoming>
+          <outgoing>sf_ad_7_end44</outgoing>
+          <property id="prop_ad_7_data_8" name="prop_Questionnaire Response filled" />
+          <property id="Property_1dl7v9u" name="__targetRef_placeholder" />
+          <dataInputAssociation id="df_id_ad_7_data_8">
+            <sourceRef>id_data_8</sourceRef>
+            <targetRef>Property_1dl7v9u</targetRef>
+          </dataInputAssociation>
+          <dataOutputAssociation id="df_id_ad_7_data_10">
+            <targetRef>id_data_10</targetRef>
+          </dataOutputAssociation>
+        </userTask>
+        <sequenceFlow id="sf_ad_7_end44" sourceRef="id_ad_7" targetRef="id_end44" />
+        <dataObjectReference id="id_data_10" name="Patient" dataObjectRef="id_dataObj_data_10">
+          <extensionElements>
+            <ns5:type xmlns:ns5="http://aist.fh-hagenberg.at/msbpmn/bpmn-extension/fhir">Patient</ns5:type>
+          </extensionElements>
+        </dataObjectReference>
+        <dataObject id="id_dataObj_data_10" />
+        <endEvent id="id_end44" name="end">
+          <incoming>sf_ad_7_end44</incoming>
+        </endEvent>
+      </subProcess>
+      <sequenceFlow id="sf_ad_5_join_of_xor_group" sourceRef="id_ad_5" targetRef="id_join_of_xor_group" />
+      <dataObjectReference id="id_data_19" name="Patient" dataObjectRef="id_dataObj_data_19">
+        <extensionElements>
+          <ns5:type xmlns:ns5="http://aist.fh-hagenberg.at/msbpmn/bpmn-extension/fhir">Patient</ns5:type>
+        </extensionElements>
+      </dataObjectReference>
+      <dataObject id="id_dataObj_data_19" />
+      <exclusiveGateway id="id_join_of_xor_group" name="join">
+        <incoming>sf_ad_8_join_of_xor_group</incoming>
+        <incoming>sf_ad_5_join_of_xor_group</incoming>
+        <outgoing>sf_join_of_xor_group_ad_11</outgoing>
+      </exclusiveGateway>
+      <sequenceFlow id="sf_join_of_xor_group_ad_11" sourceRef="id_join_of_xor_group" targetRef="id_ad_11" />
+      <userTask id="id_ad_11" name="Patient summary lookup">
+        <incoming>sf_join_of_xor_group_ad_11</incoming>
+        <outgoing>sf_ad_11_end48</outgoing>
+        <property id="prop_ad_11_data_20" name="prop_Patient" />
+        <property id="prop_ad_11_data_19" name="prop_Patient" />
+        <property id="Property_1q6xdbr" name="__targetRef_placeholder" />
+        <dataInputAssociation id="df_id_ad_11_data_20">
+          <sourceRef>id_data_20</sourceRef>
+          <targetRef>Property_1q6xdbr</targetRef>
+        </dataInputAssociation>
+        <dataInputAssociation id="df_id_ad_11_data_19">
+          <sourceRef>id_data_19</sourceRef>
+          <targetRef>Property_1q6xdbr</targetRef>
+        </dataInputAssociation>
+        <dataOutputAssociation id="df_id_ad_11_data_17">
+          <targetRef>id_data_17</targetRef>
+        </dataOutputAssociation>
+      </userTask>
+      <sequenceFlow id="sf_ad_11_end48" sourceRef="id_ad_11" targetRef="id_end48" />
+      <dataObjectReference id="id_data_17" name="Bundle" dataObjectRef="id_dataObj_data_17">
+        <extensionElements>
+          <ns5:type xmlns:ns5="http://aist.fh-hagenberg.at/msbpmn/bpmn-extension/fhir">Bundle</ns5:type>
+        </extensionElements>
+      </dataObjectReference>
+      <dataObject id="id_dataObj_data_17" />
+      <endEvent id="id_end48" name="end">
+        <incoming>sf_ad_11_end48</incoming>
+      </endEvent>
+      <textAnnotation id="TextAnnotation_1ct5v21">
+        <text>Problem</text>
+      </textAnnotation>
+      <association id="Association_0xpksac" sourceRef="id_ad_2" targetRef="TextAnnotation_1ct5v21" />
+      <textAnnotation id="TextAnnotation_0yvn2rr">
+        <text>Test</text>
+      </textAnnotation>
+      <association id="Association_1owq9a2" sourceRef="id_ad_4" targetRef="TextAnnotation_0yvn2rr" />
+    </subProcess>
+    <sequenceFlow id="sf_ad_1_end50" sourceRef="id_ad_1" targetRef="id_end50" />
+    <endEvent id="id_end50" name="end">
+      <incoming>sf_ad_1_end50</incoming>
+    </endEvent>
+    <dataObjectReference id="id_data_18" name="Bundle" dataObjectRef="id_dataObj_data_18">
+      <extensionElements>
+        <ns5:type xmlns:ns5="http://aist.fh-hagenberg.at/msbpmn/bpmn-extension/fhir">Bundle</ns5:type>
+      </extensionElements>
+    </dataObjectReference>
+    <dataObject id="id_dataObj_data_18" />
+  </process>
+</definitions>

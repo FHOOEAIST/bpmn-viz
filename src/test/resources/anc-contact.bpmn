@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (c) 2020 the original author or authors.
+  ~ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  -->
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" targetNamespace="http://aist.fh-hagenberg.at/msbpmn"
+             exporter="Camunda Modeler" exporterVersion="4.0.0">
+  <process isExecutable="false" name="PlanDefinition_ANC_Contact" id="PlanDefinition_ANC_Contact">
+    <startEvent isInterrupting="false" parallelMultiple="false" name="start" id="id_start30">
+      <outgoing>sf_start30_ad_01</outgoing>
+    </startEvent>
+    <sequenceFlow sourceRef="id_start30" targetRef="id_ad_01" id="sf_start30_ad_01"/>
+    <userTask name="Registration" id="id_ad_01">
+      <incoming>sf_start30_ad_01</incoming>
+      <outgoing>sf_ad_01_ad_02</outgoing>
+    </userTask>
+    <sequenceFlow sourceRef="id_ad_01" targetRef="id_ad_02" id="sf_ad_01_ad_02"/>
+    <subProcess name="Record health history" id="id_ad_02">
+      <incoming>sf_ad_01_ad_02</incoming>
+      <outgoing>sf_ad_02_ad_05</outgoing>
+      <startEvent isInterrupting="false" parallelMultiple="false" name="start" id="id_start32">
+        <outgoing>sf_start32_xor_group</outgoing>
+      </startEvent>
+      <sequenceFlow sourceRef="id_start32" targetRef="id_xor_group" id="sf_start32_xor_group"/>
+      <exclusiveGateway name="Xor_group" id="id_xor_group">
+        <incoming>sf_start32_xor_group</incoming>
+        <outgoing>sf_xor_group_ad_03</outgoing>
+        <outgoing>sf_xor_group_join_of_xor_group</outgoing>
+      </exclusiveGateway>
+      <sequenceFlow sourceRef="id_xor_group" targetRef="id_ad_03" name="Is First Contact" id="sf_xor_group_ad_03">
+        <conditionExpression id="sf_xor_group_ad_03_condition">Is First Contact</conditionExpression>
+      </sequenceFlow>
+      <sequenceFlow sourceRef="id_xor_group" targetRef="id_join_of_xor_group" name="else" id="sf_xor_group_join_of_xor_group">
+        <conditionExpression id="sf_xor_group_join_of_xor_group_condition">else</conditionExpression>
+      </sequenceFlow>
+      <userTask name="Record first contact information" id="id_ad_03">
+        <incoming>sf_xor_group_ad_03</incoming>
+        <outgoing>sf_ad_03_join_of_xor_group</outgoing>
+      </userTask>
+      <sequenceFlow sourceRef="id_ad_03" targetRef="id_join_of_xor_group" id="sf_ad_03_join_of_xor_group"/>
+      <exclusiveGateway name="join" id="id_join_of_xor_group">
+        <incoming>sf_ad_03_join_of_xor_group</incoming>
+        <incoming>sf_xor_group_join_of_xor_group</incoming>
+        <outgoing>sf_join_of_xor_group_ad_04</outgoing>
+      </exclusiveGateway>
+      <sequenceFlow sourceRef="id_join_of_xor_group" targetRef="id_ad_04" id="sf_join_of_xor_group_ad_04"/>
+      <userTask name="Record every contact information" id="id_ad_04">
+        <incoming>sf_join_of_xor_group_ad_04</incoming>
+        <outgoing>sf_ad_04_end33</outgoing>
+      </userTask>
+      <sequenceFlow sourceRef="id_ad_04" targetRef="id_end33" id="sf_ad_04_end33"/>
+      <endEvent name="end" id="id_end33">
+        <incoming>sf_ad_04_end33</incoming>
+      </endEvent>
+    </subProcess>
+    <sequenceFlow sourceRef="id_ad_02" targetRef="id_ad_05" id="sf_ad_02_ad_05"/>
+    <userTask name="Assess danger signs" id="id_ad_05">
+      <incoming>sf_ad_02_ad_05</incoming>
+      <outgoing>sf_ad_05_ad_06</outgoing>
+    </userTask>
+    <sequenceFlow sourceRef="id_ad_05" targetRef="id_ad_06" id="sf_ad_05_ad_06"/>
+    <userTask name="Assess current pregnancy conditions, including symptoms and lab tests" id="id_ad_06">
+      <incoming>sf_ad_05_ad_06</incoming>
+      <outgoing>sf_ad_06_ad_07</outgoing>
+    </userTask>
+    <sequenceFlow sourceRef="id_ad_06" targetRef="id_ad_07" id="sf_ad_06_ad_07"/>
+    <userTask name="Case management or referral" id="id_ad_07">
+      <incoming>sf_ad_06_ad_07</incoming>
+      <outgoing>sf_ad_07_ad_08</outgoing>
+    </userTask>
+    <sequenceFlow sourceRef="id_ad_07" targetRef="id_ad_08" id="sf_ad_07_ad_08"/>
+    <userTask name="Schedule follow-up visit" id="id_ad_08">
+      <incoming>sf_ad_07_ad_08</incoming>
+      <outgoing>sf_ad_08_end31</outgoing>
+    </userTask>
+    <sequenceFlow sourceRef="id_ad_08" targetRef="id_end31" id="sf_ad_08_end31"/>
+    <endEvent name="end" id="id_end31">
+      <incoming>sf_ad_08_end31</incoming>
+    </endEvent>
+  </process>
+</definitions>

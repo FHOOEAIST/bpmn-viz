@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+  ~ Copyright (c) 2020 the original author or authors.
+  ~ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  -->
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" targetNamespace="http://aist.fh-hagenberg.at/msbpmn">
+    <collaboration id="Collaboration_060lez2">
+        <participant id="Participant_0nuyvyi" name="ORG" processRef="Process_0bj86si" />
+        <participant id="Participant_1i2ydfg" name="FH" processRef="Process_0yuk5hu" />
+        <participant id="Participant_0isdj8m" name="CGM" processRef="Process_1xej9vg" />
+        <participant id="Participant_1xoy8vu" name="Mitarbeiter" processRef="Process_1q9gj4l" />
+        <messageFlow id="Flow_1u6fok4" sourceRef="Participant_1xoy8vu" targetRef="Participant_0nuyvyi" />
+    </collaboration>
+    <process id="Process_1q9gj4l" isExecutable="false">
+        <startEvent id="Event_0dsb80y">
+            <outgoing>Flow_0fkf2pu</outgoing>
+        </startEvent>
+        <task id="Activity_085ovnk">
+            <incoming>Flow_0fkf2pu</incoming>
+            <outgoing>Flow_0zs38o0</outgoing>
+        </task>
+        <exclusiveGateway id="Gateway_1f00agq">
+            <incoming>Flow_0zs38o0</incoming>
+            <outgoing>Flow_0upf9i4</outgoing>
+            <outgoing>Flow_0j367ii</outgoing>
+        </exclusiveGateway>
+        <task id="Activity_0u1ss5t">
+            <incoming>Flow_0upf9i4</incoming>
+            <outgoing>Flow_0v488ru</outgoing>
+        </task>
+        <endEvent id="Event_0dbfssb">
+            <incoming>Flow_0v488ru</incoming>
+            <incoming>Flow_07bd4hk</incoming>
+        </endEvent>
+        <task id="Activity_0ibt821">
+            <incoming>Flow_0j367ii</incoming>
+            <outgoing>Flow_07bd4hk</outgoing>
+        </task>
+        <sequenceFlow id="Flow_0fkf2pu" sourceRef="Event_0dsb80y" targetRef="Activity_085ovnk" />
+        <sequenceFlow id="Flow_0zs38o0" sourceRef="Activity_085ovnk" targetRef="Gateway_1f00agq" />
+        <sequenceFlow id="Flow_0upf9i4" sourceRef="Gateway_1f00agq" targetRef="Activity_0u1ss5t" />
+        <sequenceFlow id="Flow_0v488ru" sourceRef="Activity_0u1ss5t" targetRef="Event_0dbfssb" />
+        <sequenceFlow id="Flow_0j367ii" sourceRef="Gateway_1f00agq" targetRef="Activity_0ibt821" />
+        <sequenceFlow id="Flow_07bd4hk" sourceRef="Activity_0ibt821" targetRef="Event_0dbfssb" />
+    </process>
+    <process id="Process_0bj86si" isExecutable="false">
+        <laneSet id="LaneSet_1odq38x">
+            <lane id="Lane_0pe6dsy" name="Director">
+                <flowNodeRef>Event_1pu8tq9</flowNodeRef>
+                <flowNodeRef>Event_1i2x0go</flowNodeRef>
+            </lane>
+            <lane id="Lane_0obdduq" name="Dev-Team">
+                <flowNodeRef>Activity_06d7f5p</flowNodeRef>
+                <flowNodeRef>Gateway_1sge7a3</flowNodeRef>
+                <flowNodeRef>Activity_12hsl33</flowNodeRef>
+                <flowNodeRef>Activity_0f9gzsg</flowNodeRef>
+                <flowNodeRef>Activity_0vhfp3z</flowNodeRef>
+                <flowNodeRef>Activity_1y7inot</flowNodeRef>
+                <childLaneSet id="LaneSet_0io1vjh">
+                    <lane id="Lane_1ibtdn4" name="Member #3">
+                        <flowNodeRef>Activity_0f9gzsg</flowNodeRef>
+                        <flowNodeRef>Activity_1y7inot</flowNodeRef>
+                        <childLaneSet id="LaneSet_0pqm5mz">
+                            <lane id="Lane_00ptndg" name="HomeOffice">
+                                <flowNodeRef>Activity_0f9gzsg</flowNodeRef>
+                            </lane>
+                            <lane id="Lane_055kr8s" name="Office">
+                                <flowNodeRef>Activity_1y7inot</flowNodeRef>
+                            </lane>
+                        </childLaneSet>
+                    </lane>
+                    <lane id="Lane_00fnkfq" name="Member #2">
+                        <flowNodeRef>Activity_06d7f5p</flowNodeRef>
+                        <flowNodeRef>Gateway_1sge7a3</flowNodeRef>
+                        <flowNodeRef>Activity_0vhfp3z</flowNodeRef>
+                    </lane>
+                    <lane id="Lane_0vm6gw9" name="Member #1">
+                        <flowNodeRef>Activity_12hsl33</flowNodeRef>
+                    </lane>
+                </childLaneSet>
+            </lane>
+        </laneSet>
+        <task id="Activity_06d7f5p">
+            <incoming>Flow_1eikdoi</incoming>
+            <outgoing>Flow_02ymlj5</outgoing>
+        </task>
+        <exclusiveGateway id="Gateway_1sge7a3">
+            <incoming>Flow_02ymlj5</incoming>
+            <outgoing>Flow_00cns7v</outgoing>
+            <outgoing>Flow_1xcresm</outgoing>
+            <outgoing>Flow_1g88arh</outgoing>
+            <outgoing>Flow_1t1dajs</outgoing>
+        </exclusiveGateway>
+        <task id="Activity_12hsl33">
+            <incoming>Flow_00cns7v</incoming>
+            <outgoing>Flow_1yjh85l</outgoing>
+            <property id="Property_04uyp5h" name="__targetRef_placeholder" />
+            <dataInputAssociation id="DataInputAssociation_1rwayqx">
+                <sourceRef>DataStoreReference_0yz7sia</sourceRef>
+                <targetRef>Property_04uyp5h</targetRef>
+            </dataInputAssociation>
+        </task>
+        <task id="Activity_0f9gzsg">
+            <incoming>Flow_1xcresm</incoming>
+            <outgoing>Flow_1slzdjs</outgoing>
+            <dataOutputAssociation id="DataOutputAssociation_148ovrq">
+                <targetRef>DataObjectReference_0xx0h9j</targetRef>
+            </dataOutputAssociation>
+        </task>
+        <task id="Activity_0vhfp3z">
+            <incoming>Flow_1g88arh</incoming>
+            <outgoing>Flow_03wtjdn</outgoing>
+        </task>
+        <endEvent id="Event_1pu8tq9">
+            <incoming>Flow_1yjh85l</incoming>
+            <incoming>Flow_1slzdjs</incoming>
+            <incoming>Flow_03wtjdn</incoming>
+            <incoming>Flow_1w94vp4</incoming>
+            <property id="Property_1brmnnb" name="__targetRef_placeholder" />
+            <dataInputAssociation id="DataInputAssociation_0ptwr40">
+                <sourceRef>DataObjectReference_0xx0h9j</sourceRef>
+                <targetRef>Property_1brmnnb</targetRef>
+            </dataInputAssociation>
+        </endEvent>
+        <startEvent id="Event_1i2x0go">
+            <outgoing>Flow_1eikdoi</outgoing>
+        </startEvent>
+        <task id="Activity_1y7inot">
+            <incoming>Flow_1t1dajs</incoming>
+            <outgoing>Flow_1w94vp4</outgoing>
+        </task>
+        <dataStoreReference id="DataStoreReference_0yz7sia" />
+        <dataObjectReference id="DataObjectReference_0xx0h9j" dataObjectRef="DataObject_0tz53d6" />
+        <dataObject id="DataObject_0tz53d6" />
+        <sequenceFlow id="Flow_03wtjdn" sourceRef="Activity_0vhfp3z" targetRef="Event_1pu8tq9" />
+        <sequenceFlow id="Flow_1g88arh" sourceRef="Gateway_1sge7a3" targetRef="Activity_0vhfp3z" />
+        <sequenceFlow id="Flow_1eikdoi" sourceRef="Event_1i2x0go" targetRef="Activity_06d7f5p" />
+        <sequenceFlow id="Flow_02ymlj5" sourceRef="Activity_06d7f5p" targetRef="Gateway_1sge7a3" />
+        <sequenceFlow id="Flow_00cns7v" sourceRef="Gateway_1sge7a3" targetRef="Activity_12hsl33" />
+        <sequenceFlow id="Flow_1xcresm" sourceRef="Gateway_1sge7a3" targetRef="Activity_0f9gzsg" />
+        <sequenceFlow id="Flow_1yjh85l" sourceRef="Activity_12hsl33" targetRef="Event_1pu8tq9" />
+        <sequenceFlow id="Flow_1slzdjs" sourceRef="Activity_0f9gzsg" targetRef="Event_1pu8tq9" />
+        <sequenceFlow id="Flow_1t1dajs" sourceRef="Gateway_1sge7a3" targetRef="Activity_1y7inot" />
+        <sequenceFlow id="Flow_1w94vp4" sourceRef="Activity_1y7inot" targetRef="Event_1pu8tq9" />
+    </process>
+    <process id="Process_0yuk5hu" isExecutable="true">
+        <laneSet id="LaneSet_0g6weas">
+            <lane id="Lane_08p0iqs" name="Admin">
+                <flowNodeRef>StartEvent_1</flowNodeRef>
+            </lane>
+            <lane id="Lane_0xl30ii" name="AIST">
+                <flowNodeRef>Activity_1vqf606</flowNodeRef>
+                <flowNodeRef>Gateway_1xned2g</flowNodeRef>
+                <flowNodeRef>Activity_0meeyjz</flowNodeRef>
+                <flowNodeRef>Activity_1mclj80</flowNodeRef>
+                <flowNodeRef>Event_0kden5m</flowNodeRef>
+            </lane>
+        </laneSet>
+        <startEvent id="StartEvent_1">
+            <outgoing>Flow_0a5vbtm</outgoing>
+            <dataOutputAssociation id="DataOutputAssociation_0y1fjf7">
+                <targetRef>DataObjectReference_19bx3fp</targetRef>
+            </dataOutputAssociation>
+            <dataOutputAssociation id="DataOutputAssociation_09mbxhy">
+                <targetRef>DataStoreReference_05zey4w</targetRef>
+            </dataOutputAssociation>
+            <dataOutputAssociation id="DataOutputAssociation_1rf4zo5">
+                <targetRef>DataStoreReference_0cjvpf8</targetRef>
+            </dataOutputAssociation>
+        </startEvent>
+        <task id="Activity_1vqf606">
+            <incoming>Flow_0a5vbtm</incoming>
+            <outgoing>Flow_19wb42a</outgoing>
+            <property id="Property_0st3m4i" name="__targetRef_placeholder" />
+            <dataInputAssociation id="DataInputAssociation_1n6wzwf">
+                <sourceRef>DataObjectReference_0zcun94</sourceRef>
+                <targetRef>Property_0st3m4i</targetRef>
+            </dataInputAssociation>
+            <dataInputAssociation id="DataInputAssociation_16utxf8">
+                <sourceRef>DataStoreReference_05zey4w</sourceRef>
+                <targetRef>Property_0st3m4i</targetRef>
+            </dataInputAssociation>
+            <dataOutputAssociation id="DataOutputAssociation_0xayuhv">
+                <targetRef>DataObjectReference_1v7fl6p</targetRef>
+            </dataOutputAssociation>
+        </task>
+        <exclusiveGateway id="Gateway_1xned2g">
+            <incoming>Flow_19wb42a</incoming>
+            <outgoing>Flow_19pjklx</outgoing>
+            <outgoing>Flow_14f1vg8</outgoing>
+        </exclusiveGateway>
+        <task id="Activity_0meeyjz">
+            <incoming>Flow_19pjklx</incoming>
+            <outgoing>Flow_1q2sgli</outgoing>
+            <property id="Property_0hr1fsz" name="__targetRef_placeholder" />
+            <dataInputAssociation id="DataInputAssociation_1v29a3y">
+                <sourceRef>DataObjectReference_19bx3fp</sourceRef>
+                <targetRef>Property_0hr1fsz</targetRef>
+            </dataInputAssociation>
+        </task>
+        <task id="Activity_1mclj80">
+            <incoming>Flow_14f1vg8</incoming>
+            <outgoing>Flow_1xo4hkx</outgoing>
+            <property id="Property_1hscbov" name="__targetRef_placeholder" />
+            <dataInputAssociation id="DataInputAssociation_0dz2v61">
+                <sourceRef>DataObjectReference_1v7fl6p</sourceRef>
+                <targetRef>Property_1hscbov</targetRef>
+            </dataInputAssociation>
+        </task>
+        <endEvent id="Event_0kden5m">
+            <incoming>Flow_1xo4hkx</incoming>
+            <incoming>Flow_1q2sgli</incoming>
+        </endEvent>
+        <dataObjectReference id="DataObjectReference_1v7fl6p" dataObjectRef="DataObject_11igst3" />
+        <dataObject id="DataObject_11igst3" />
+        <dataObjectReference id="DataObjectReference_19bx3fp" dataObjectRef="DataObject_12l98ee" />
+        <dataObject id="DataObject_12l98ee" />
+        <dataObjectReference id="DataObjectReference_0zcun94" dataObjectRef="DataObject_10kau83" />
+        <dataObject id="DataObject_10kau83" />
+        <dataStoreReference id="DataStoreReference_05zey4w" />
+        <dataStoreReference id="DataStoreReference_0cjvpf8" />
+        <sequenceFlow id="Flow_0a5vbtm" sourceRef="StartEvent_1" targetRef="Activity_1vqf606" />
+        <sequenceFlow id="Flow_19wb42a" sourceRef="Activity_1vqf606" targetRef="Gateway_1xned2g" />
+        <sequenceFlow id="Flow_19pjklx" sourceRef="Gateway_1xned2g" targetRef="Activity_0meeyjz" />
+        <sequenceFlow id="Flow_14f1vg8" sourceRef="Gateway_1xned2g" targetRef="Activity_1mclj80" />
+        <sequenceFlow id="Flow_1xo4hkx" sourceRef="Activity_1mclj80" targetRef="Event_0kden5m" />
+        <sequenceFlow id="Flow_1q2sgli" sourceRef="Activity_0meeyjz" targetRef="Event_0kden5m" />
+    </process>
+    <process id="Process_1xej9vg" isExecutable="false">
+        <startEvent id="Event_0nx4az3">
+            <outgoing>Flow_1m4dcnl</outgoing>
+        </startEvent>
+        <task id="Activity_1jqhck5">
+            <incoming>Flow_1m4dcnl</incoming>
+            <outgoing>Flow_07s9coo</outgoing>
+            <property id="Property_0l76e44" name="__targetRef_placeholder" />
+            <dataInputAssociation id="DataInputAssociation_0mnueey">
+                <sourceRef>DataStoreReference_0ewplq9</sourceRef>
+                <targetRef>Property_0l76e44</targetRef>
+            </dataInputAssociation>
+        </task>
+        <endEvent id="Event_066sunn">
+            <incoming>Flow_07s9coo</incoming>
+        </endEvent>
+        <dataStoreReference id="DataStoreReference_0ewplq9" />
+        <sequenceFlow id="Flow_1m4dcnl" sourceRef="Event_0nx4az3" targetRef="Activity_1jqhck5" />
+        <sequenceFlow id="Flow_07s9coo" sourceRef="Activity_1jqhck5" targetRef="Event_066sunn" />
+    </process>
+</definitions>

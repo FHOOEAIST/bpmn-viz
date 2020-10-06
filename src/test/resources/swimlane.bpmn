@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (c) 2020 the original author or authors.
+  ~ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+  ~
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at https://mozilla.org/MPL/2.0/.
+  -->
+
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" typeLanguage="http://www.w3.org/2001/XMLSchema"
+             expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://aist.fh-hagenberg.at/msbpmn">
+  <collaboration id="Collaboration_17xtm2e">
+    <participant id="Participant_1gk8uee" name="FH" processRef="Process_1fcgnt1" />
+  </collaboration>
+  <process id="Process_1fcgnt1" isExecutable="false">
+    <laneSet id="LaneSet_1jwyc9q">
+      <lane id="Lane_1y9ay9a" name="Admin">
+        <flowNodeRef>Event_0vf6gjv</flowNodeRef>
+      </lane>
+      <lane id="Lane_003y0sj" name="Office">
+        <flowNodeRef>Activity_059zjbc</flowNodeRef>
+        <flowNodeRef>Activity_1np7wed</flowNodeRef>
+      </lane>
+      <lane id="Lane_180etu4" name="IT">
+        <flowNodeRef>Event_1l71d3t</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="Event_0vf6gjv" name="S">
+      <outgoing>Flow_0styaq8</outgoing>
+    </startEvent>
+    <task id="Activity_059zjbc" name="T1">
+      <incoming>Flow_0styaq8</incoming>
+      <outgoing>Flow_0koy9ea</outgoing>
+      <dataOutputAssociation id="DataOutputAssociation_0j23d7w">
+        <targetRef>DataObjectReference_0okgaod</targetRef>
+      </dataOutputAssociation>
+    </task>
+    <task id="Activity_1np7wed" name="T2">
+      <incoming>Flow_0koy9ea</incoming>
+      <outgoing>Flow_11qle1m</outgoing>
+      <property id="Property_11i1m8c" name="__targetRef_placeholder" />
+      <dataInputAssociation id="DataInputAssociation_06caqb3">
+        <sourceRef>DataObjectReference_0okgaod</sourceRef>
+        <targetRef>Property_11i1m8c</targetRef>
+      </dataInputAssociation>
+    </task>
+    <intermediateThrowEvent id="Event_1l71d3t" name="E">
+      <incoming>Flow_11qle1m</incoming>
+    </intermediateThrowEvent>
+    <dataObjectReference id="DataObjectReference_0okgaod" dataObjectRef="DataObject_0hjusmx" />
+    <dataObject id="DataObject_0hjusmx" />
+    <sequenceFlow id="Flow_0styaq8" sourceRef="Event_0vf6gjv" targetRef="Activity_059zjbc" />
+    <sequenceFlow id="Flow_0koy9ea" sourceRef="Activity_059zjbc" targetRef="Activity_1np7wed" />
+    <sequenceFlow id="Flow_11qle1m" sourceRef="Activity_1np7wed" targetRef="Event_1l71d3t" />
+    <textAnnotation id="TextAnnotation_0se6n3m">
+      <text>Tesstststst</text>
+    </textAnnotation>
+    <textAnnotation id="TextAnnotation_03s81c8">
+      <text>Hier schreibe ich eine Test Annotation die absichtlich länger ist damit wir sehen ob alles funktioniert..</text>
+    </textAnnotation>
+    <association id="Association_1v96dhu" sourceRef="Activity_1np7wed" targetRef="TextAnnotation_0se6n3m" />
+    <association id="Association_014icvr" sourceRef="Activity_059zjbc" targetRef="TextAnnotation_03s81c8" />
+  </process>
+</definitions>
