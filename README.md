@@ -56,6 +56,12 @@ This Source Code Form is subject to the terms of the Mozilla Public
 License, v. 2.0. If a copy of the MPL was not distributed with this
 file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+The following code is under different licence and copyright: 
+
+| Licence | Filepaths |
+|-|-|
+| **Apache 2.0**<br>see LICENCE_APACHE_2_0 | src/main/java/science/aist/bpmn/viz/BpmnAutoLayout.java |
+
 ## Research
 
 If you are going to use this project as part of a research paper, we would ask you to reference this project by citing
