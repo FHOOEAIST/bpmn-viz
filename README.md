@@ -3,6 +3,9 @@
 BPMN visualization provides a functionality to generate the diagramm interchange information for a given
 BPMN model. 
 
+## Known Issues
+ - mxgraph dependency not available on maven central: (#4 - https://github.com/FHOOEAIST/bpmn-viz/issues/4)
+
 ## Getting Started
 
 To use the bpmn visualization, simply include the maven dependency on the project.
@@ -61,6 +64,7 @@ The following code is under different licence and copyright:
 | Licence | Filepaths |
 |-|-|
 | **Apache 2.0**<br>see LICENCE_APACHE_2_0 | src/main/java/science/aist/bpmn/viz/BpmnAutoLayout.java |
+| **jgraph mxgraph**<br>see LICENSE_JGRAPH_MXGRAPH | dependency: com.mxgraph:mxgraph-all:3.7.4 |
 
 ## Research
 
