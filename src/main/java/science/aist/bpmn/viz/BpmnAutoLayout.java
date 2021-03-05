@@ -169,7 +169,7 @@ public class BpmnAutoLayout {
     /**
      * Method to handle different flow element containers
      *
-     * @param flowElementsContainer the container of flow elements -> can be either TProcess or TSubProcess at the moment
+     * @param flowElementsContainer the container of flow elements -&gt; can be either TProcess or TSubProcess at the moment
      */
     public void layoutHandler(TBaseElement flowElementsContainer) {
         // Create lists for the elements of a process element
