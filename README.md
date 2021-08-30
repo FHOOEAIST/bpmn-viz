@@ -1,5 +1,11 @@
 # BPMN Visualization
 
+[![javadoc](https://javadoc.io/badge2/science.aist/bpmn-viz/javadoc.svg)](https://javadoc.io/doc/science.aist/bpmn-viz) 
+[![Maven Central](https://img.shields.io/maven-central/v/science.aist/bpmn-viz.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22science.aist%22%20a:%22bpmn-viz%22)
+[![GitHub release](https://img.shields.io/github/v/release/fhooeaist/bpmn-viz.svg)](https://github.com/fhooeaist/bpmn-viz/releases)
+[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
+[![DOI](https://zenodo.org/badge/301400051.svg)](https://zenodo.org/badge/latestdoi/301400051)
+
 BPMN visualization provides a functionality to generate the diagramm interchange information for a given
 BPMN model. 
 
