@@ -109,14 +109,6 @@
         </developer>
     </developers>
 
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>FlowtickJGraphx</id>-->
-<!--            <name>FlowtickJGraphx Repository</name>-->
-<!--            <url>https://dl.bintray.com/flowtick/jgraphx/</url>-->
-<!--        </repository>-->
-<!--    </repositories>-->
-
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
