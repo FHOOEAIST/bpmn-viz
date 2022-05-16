@@ -26,7 +26,7 @@
         <log4j.version>2.12.1</log4j.version>
         <lombok.version>1.18.12</lombok.version>
         <bpmn-model.version>1.0.0</bpmn-model.version>
-        <mxgraph.version>3.7.4</mxgraph.version>
+        <mxgraph.version>4.2.2</mxgraph.version>
 
         <!-- set platform source encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -109,13 +109,13 @@
         </developer>
     </developers>
 
-    <repositories>
-        <repository>
-            <id>FlowtickJGraphx</id>
-            <name>FlowtickJGraphx Repository</name>
-            <url>https://dl.bintray.com/flowtick/jgraphx/</url>
-        </repository>
-    </repositories>
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>FlowtickJGraphx</id>-->
+<!--            <name>FlowtickJGraphx Repository</name>-->
+<!--            <url>https://dl.bintray.com/flowtick/jgraphx/</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
 
     <dependencies>
         <dependency>
@@ -138,11 +138,14 @@
             <version>${bpmn-model.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.github.vlsi.mxgraph/jgraphx -->
         <dependency>
-            <groupId>com.mxgraph</groupId>
+            <groupId>com.github.vlsi.mxgraph</groupId>
             <artifactId>jgraphx</artifactId>
             <version>${mxgraph.version}</version>
         </dependency>
+
+
     </dependencies>
 
     <reporting>
