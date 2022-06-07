@@ -24,7 +24,7 @@
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <log4j.version>2.12.1</log4j.version>
-        <lombok.version>1.18.12</lombok.version>
+        <lombok.version>1.18.24</lombok.version>
         <bpmn-model.version>1.0.0</bpmn-model.version>
         <mxgraph.version>4.2.2</mxgraph.version>
 
